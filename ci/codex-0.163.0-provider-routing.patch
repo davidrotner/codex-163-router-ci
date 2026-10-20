@@ -101,6 +101,37 @@ index 70cf8b7..8271b54 100644
          let multi_agent_v2_usage_hint_texts_to_filter: Vec<String> =
              if multi_agent_version == MultiAgentVersion::V2 {
                  let parent_config = parent_thread.session.get_config().await;
+diff --git a/codex-rs/core/src/agent_communication.rs b/codex-rs/core/src/agent_communication.rs
+index 9925d61..d7f2e20 100644
+--- a/codex-rs/core/src/agent_communication.rs
++++ b/codex-rs/core/src/agent_communication.rs
+@@ -40,6 +40,14 @@ impl AgentCommunicationContext {
+     }
+ }
+ 
++fn communication_content_for_log(communication: &InterAgentCommunication) -> &'static str {
++    if communication.encrypted_content.is_some() {
++        "[encrypted]"
++    } else {
++        "[plaintext]"
++    }
++}
++
+ pub(crate) fn logging_enabled() -> bool {
+     tracing::enabled!(target: AGENT_COMMUNICATION_TARGET, tracing::Level::INFO)
+ }
+@@ -59,10 +67,7 @@ pub(crate) fn emit_agent_communication_send(
+             state = "send",
+             sender_thread_id = %context.sender_thread_id,
+             receiver_thread_id = %receiver_thread_id,
+-            content = communication
+-                .encrypted_content
+-                .as_deref()
+-                .unwrap_or("[plaintext]"),
++            content = communication_content_for_log(communication),
+         },
+         "agent communication"
+     );
 diff --git a/codex-rs/core/src/lib.rs b/codex-rs/core/src/lib.rs
 index 08b52fc..73acb3e 100644
 --- a/codex-rs/core/src/lib.rs
@@ -231,3 +262,155 @@ index 0000000..793a2ba
 +        assert!(registry.lookup("gpt-6-astra").is_some());
 +    }
 +}
+diff --git a/codex-rs/core/src/thread_spawn.rs b/codex-rs/core/src/thread_spawn.rs
+index 29dc6c4..6a22c56 100644
+--- a/codex-rs/core/src/thread_spawn.rs
++++ b/codex-rs/core/src/thread_spawn.rs
+@@ -96,6 +96,12 @@ pub(crate) async fn spawn(
+     .await
+     .map_err(ThreadSpawnError::Preparation)?;
+     let config = prepared.config;
++    validate_cross_provider_message(
++        &turn.config.model_provider_id,
++        &config.model_provider_id,
++        &message,
++    )
++    .map_err(ThreadSpawnError::Preparation)?;
+     let task_name = turn
+         .session_source
+         .get_agent_path()
+@@ -165,3 +171,57 @@ pub(crate) async fn spawn(
+         task_name,
+     })
+ }
++
++fn validate_cross_provider_message(
++    parent_provider_id: &str,
++    child_provider_id: &str,
++    message: &AgentMessage,
++) -> Result<(), String> {
++    if parent_provider_id != child_provider_id && matches!(message, AgentMessage::Encrypted(_)) {
++        return Err(format!(
++            "spawn_agent across providers requires plaintext task content: parent provider `{parent_provider_id}`, child provider `{child_provider_id}`"
++        ));
++    }
++    Ok(())
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn cross_provider_rejects_encrypted_message() {
++        assert!(
++            validate_cross_provider_message(
++                "openai",
++                "litellm",
++                &AgentMessage::Encrypted("ciphertext".to_string())
++            )
++            .is_err()
++        );
++    }
++
++    #[test]
++    fn cross_provider_allows_plaintext_message() {
++        assert!(
++            validate_cross_provider_message(
++                "openai",
++                "litellm",
++                &AgentMessage::Plaintext("Reply with exactly BANANA".to_string())
++            )
++            .is_ok()
++        );
++    }
++
++    #[test]
++    fn same_provider_preserves_encrypted_message() {
++        assert!(
++            validate_cross_provider_message(
++                "openai",
++                "openai",
++                &AgentMessage::Encrypted("ciphertext".to_string())
++            )
++            .is_ok()
++        );
++    }
++}
+diff --git a/codex-rs/core/src/tools/handlers/multi_agents_v2.rs b/codex-rs/core/src/tools/handlers/multi_agents_v2.rs
+index ea44c0a..b2ca2db 100644
+--- a/codex-rs/core/src/tools/handlers/multi_agents_v2.rs
++++ b/codex-rs/core/src/tools/handlers/multi_agents_v2.rs
+@@ -64,3 +64,23 @@ fn agent_message_from_tool(
+         AgentMessage::Encrypted(message)
+     }
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use crate::tools::context::ToolCallSource;
++
++    #[test]
++    fn plaintext_source_produces_plaintext_message() {
++        let source = ToolCallSource::DirectPlaintextMessage;
++        let message = agent_message_from_tool("Reply with exactly BANANA".to_string(), &source);
++        assert!(matches!(message, AgentMessage::Plaintext(_)));
++    }
++
++    #[test]
++    fn encrypted_source_produces_encrypted_message() {
++        let source = ToolCallSource::Direct;
++        let message = agent_message_from_tool("ciphertext".to_string(), &source);
++        assert!(matches!(message, AgentMessage::Encrypted(_)));
++    }
++}
+diff --git a/codex-rs/core/src/tools/router.rs b/codex-rs/core/src/tools/router.rs
+index a7a1928..a46eb82 100644
+--- a/codex-rs/core/src/tools/router.rs
++++ b/codex-rs/core/src/tools/router.rs
+@@ -62,7 +62,7 @@ impl ToolCall {
+             && self
+                 .encrypted_function_args
+                 .as_ref()
+-                .is_some_and(Vec::is_empty)
++                .is_none_or(Vec::is_empty)
+         {
+             ToolCallSource::DirectPlaintextMessage
+         } else {
+diff --git a/codex-rs/core/src/tools/router_tests.rs b/codex-rs/core/src/tools/router_tests.rs
+index aff6d41..6646cc1 100644
+--- a/codex-rs/core/src/tools/router_tests.rs
++++ b/codex-rs/core/src/tools/router_tests.rs
+@@ -207,6 +207,31 @@ async fn parallel_support_does_not_match_namespaced_local_tool_names() -> anyhow
+     Ok(())
+ }
+ 
++#[test]
++fn collaboration_spawn_is_plaintext_unless_args_are_encrypted() {
++    let call = |encrypted_function_args| ToolCall {
++        tool_name: ToolName::namespaced("collaboration", "spawn_agent"),
++        call_id: "call-spawn".to_string(),
++        payload: ToolPayload::Function {
++            arguments: "{}".to_string(),
++        },
++        encrypted_function_args,
++    };
++
++    assert_eq!(
++        call(None).direct_source(),
++        ToolCallSource::DirectPlaintextMessage
++    );
++    assert_eq!(
++        call(Some(Vec::new())).direct_source(),
++        ToolCallSource::DirectPlaintextMessage
++    );
++    assert_eq!(
++        call(Some(vec!["ciphertext".to_string()])).direct_source(),
++        ToolCallSource::Direct
++    );
++}
++
+ #[tokio::test]
+ async fn build_tool_call_uses_namespace_for_registry_name() -> anyhow::Result<()> {
+     let tool_name = "create_event".to_string();
