@@ -1,0 +1,233 @@
+diff --git a/codex-rs/core/Cargo.toml b/codex-rs/core/Cargo.toml
+index 39c8608..134ef5b 100644
+--- a/codex-rs/core/Cargo.toml
++++ b/codex-rs/core/Cargo.toml
+@@ -108,6 +108,7 @@ rmcp = { workspace = true, default-features = false, features = [
+ ] }
+ serde = { workspace = true, features = ["derive"] }
+ serde_json = { workspace = true }
++serde_yaml = { workspace = true }
+ sha1 = { workspace = true }
+ shlex = { workspace = true }
+ similar = { workspace = true }
+diff --git a/codex-rs/core/src/agent/child_config.rs b/codex-rs/core/src/agent/child_config.rs
+index 3d56d7e..e451edd 100644
+--- a/codex-rs/core/src/agent/child_config.rs
++++ b/codex-rs/core/src/agent/child_config.rs
+@@ -6,6 +6,7 @@
+ use crate::agent::role::DEFAULT_ROLE_NAME;
+ use crate::agent::role::apply_role_to_config;
+ use crate::config::Config;
++use crate::model_registry::ModelRegistry;
+ use crate::session::session::Session;
+ use crate::session::step_context::StepContext;
+ use crate::session::turn_context::TurnContext;
+@@ -82,6 +83,9 @@ pub(crate) async fn prepare_agent_spawn_config(
+         }
+     }
+     apply_spawn_agent_service_tier(session, &mut config).await?;
++    if config.model.as_deref() != Some(turn.model_info().slug.as_str()) {
++        resolve_spawn_agent_model_provider(&mut config)?;
++    }
+     apply_spawn_agent_runtime_overrides(&mut config, turn)?;
+ 
+     // Remember an applied configured default so cold reload reapplies its restrictions.
+@@ -201,6 +205,36 @@ fn apply_spawn_agent_runtime_overrides(
+     Ok(())
+ }
+ 
++fn resolve_spawn_agent_model_provider(config: &mut Config) -> Result<(), String> {
++    let Some(model_slug) = config.model.clone() else {
++        return Ok(());
++    };
++    let registry = ModelRegistry::load_default()?;
++    let Some(entry) = registry.lookup(&model_slug) else {
++        return Ok(());
++    };
++    let provider = config
++        .model_providers
++        .get(&entry.provider)
++        .cloned()
++        .ok_or_else(|| {
++            format!(
++                "spawn_agent model `{model_slug}` resolved to unknown provider `{}`",
++                entry.provider
++            )
++        })?;
++    tracing::info!(
++        model = %model_slug,
++        provider = %entry.provider,
++        upstream_model = %entry.upstream_model,
++        "spawn_agent model resolved from router registry"
++    );
++    config.model_provider_id = entry.provider.clone();
++    config.model_provider = provider;
++    config.model = Some(entry.upstream_model.clone());
++    Ok(())
++}
++
+ async fn apply_requested_spawn_agent_model_overrides(
+     session: &Session,
+     step_context: &StepContext,
+diff --git a/codex-rs/core/src/agent/control/spawn.rs b/codex-rs/core/src/agent/control/spawn.rs
+index 70cf8b7..8271b54 100644
+--- a/codex-rs/core/src/agent/control/spawn.rs
++++ b/codex-rs/core/src/agent/control/spawn.rs
+@@ -1087,6 +1087,27 @@ impl LocalAgentControl {
+                 })?
+                 .items;
+ 
++        let parent_provider_id = parent_thread.config_snapshot().await.model_provider_id;
++        if config.model_provider_id != parent_provider_id {
++            let mut cleared = 0;
++            for item in &mut forked_rollout_items {
++                if let RolloutItem::ResponseItem(envelope) = item
++                    && envelope.item.id().is_some()
++                {
++                    envelope.item.set_id(None);
++                    cleared += 1;
++                }
++            }
++            if cleared > 0 {
++                tracing::info!(
++                    parent_provider_id = %parent_provider_id,
++                    child_provider_id = %config.model_provider_id,
++                    cleared,
++                    "cleared provider-owned response item ids from forked history"
++                );
++            }
++        }
++
+         let multi_agent_v2_usage_hint_texts_to_filter: Vec<String> =
+             if multi_agent_version == MultiAgentVersion::V2 {
+                 let parent_config = parent_thread.session.get_config().await;
+diff --git a/codex-rs/core/src/lib.rs b/codex-rs/core/src/lib.rs
+index 08b52fc..73acb3e 100644
+--- a/codex-rs/core/src/lib.rs
++++ b/codex-rs/core/src/lib.rs
+@@ -9,6 +9,7 @@ mod apply_patch;
+ mod apps;
+ mod client;
+ mod client_common;
++mod model_registry;
+ mod model_request;
+ mod realtime_context;
+ mod realtime_conversation;
+diff --git a/codex-rs/core/src/model_registry.rs b/codex-rs/core/src/model_registry.rs
+new file mode 100644
+index 0000000..793a2ba
+--- /dev/null
++++ b/codex-rs/core/src/model_registry.rs
+@@ -0,0 +1,112 @@
++use serde::Deserialize;
++use std::collections::HashMap;
++use std::path::{Path, PathBuf};
++
++const REGISTRY_PATH_ENV: &str = "CODEX_ROUTER_MODELS_PATH";
++
++#[derive(Debug, Clone, Deserialize, PartialEq, Eq)]
++pub(crate) struct ModelEntry {
++    pub(crate) provider: String,
++    pub(crate) upstream_model: String,
++}
++
++#[derive(Debug, Clone, Default)]
++pub(crate) struct ModelRegistry {
++    entries: HashMap<String, ModelEntry>,
++}
++
++impl ModelRegistry {
++    pub(crate) fn load(path: &Path) -> Result<Self, String> {
++        match std::fs::read_to_string(path) {
++            Ok(contents) => Self::from_yaml(&contents)
++                .map_err(|err| format!("invalid model registry {}: {err}", path.display())),
++            Err(err) if err.kind() == std::io::ErrorKind::NotFound => Ok(Self::default()),
++            Err(err) => Err(format!(
++                "failed to read model registry {}: {err}",
++                path.display()
++            )),
++        }
++    }
++
++    pub(crate) fn from_yaml(yaml: &str) -> Result<Self, String> {
++        if yaml.trim().is_empty() {
++            return Ok(Self::default());
++        }
++        let entries: HashMap<String, ModelEntry> =
++            serde_yaml::from_str(yaml).map_err(|err| err.to_string())?;
++        Ok(Self { entries })
++    }
++
++    pub(crate) fn load_default() -> Result<Self, String> {
++        if let Some(path) = std::env::var_os(REGISTRY_PATH_ENV) {
++            return Self::load(Path::new(&path));
++        }
++        match Self::default_path() {
++            Some(path) => Self::load(&path),
++            None => Ok(Self::default()),
++        }
++    }
++
++    pub(crate) fn lookup(&self, model_slug: &str) -> Option<&ModelEntry> {
++        self.entries.get(model_slug)
++    }
++
++    fn default_path() -> Option<PathBuf> {
++        dirs::home_dir().map(|home| home.join(".config/codex-router/models.yaml"))
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use std::io::Write;
++
++    const SAMPLE: &str = r#"
++nemotron-3.5-lightning:
++  provider: litellm
++  upstream_model: nvidia/nemotron-3.5-lightning
++gpt-6-astra:
++  provider: openai
++  upstream_model: gpt-6-astra
++"#;
++
++    #[test]
++    fn parses_entries_and_looks_up_by_slug() {
++        let registry = ModelRegistry::from_yaml(SAMPLE).expect("registry");
++        let entry = registry.lookup("nemotron-3.5-lightning").expect("entry");
++        assert_eq!(entry.provider, "litellm");
++        assert_eq!(entry.upstream_model, "nvidia/nemotron-3.5-lightning");
++    }
++
++    #[test]
++    fn unknown_slug_is_none() {
++        let registry = ModelRegistry::from_yaml(SAMPLE).expect("registry");
++        assert!(registry.lookup("unknown").is_none());
++    }
++
++    #[test]
++    fn empty_registry_is_allowed() {
++        let registry = ModelRegistry::from_yaml("  \n").expect("registry");
++        assert!(registry.lookup("nemotron-3.5-lightning").is_none());
++    }
++
++    #[test]
++    fn malformed_registry_is_an_error() {
++        assert!(ModelRegistry::from_yaml("not: [valid").is_err());
++    }
++
++    #[test]
++    fn missing_file_is_empty() {
++        let registry =
++            ModelRegistry::load(Path::new("/nonexistent/models.yaml")).expect("registry");
++        assert!(registry.lookup("nemotron-3.5-lightning").is_none());
++    }
++
++    #[test]
++    fn reads_registry_file() {
++        let mut file = tempfile::NamedTempFile::new().expect("temp file");
++        file.write_all(SAMPLE.as_bytes()).expect("write");
++        let registry = ModelRegistry::load(file.path()).expect("registry");
++        assert!(registry.lookup("gpt-6-astra").is_some());
++    }
++}
