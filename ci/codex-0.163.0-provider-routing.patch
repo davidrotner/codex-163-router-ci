@@ -263,33 +263,51 @@ index 0000000..793a2ba
 +    }
 +}
 diff --git a/codex-rs/core/src/thread_spawn.rs b/codex-rs/core/src/thread_spawn.rs
-index 29dc6c4..6a22c56 100644
+index 29dc6c4..78277b6 100644
 --- a/codex-rs/core/src/thread_spawn.rs
 +++ b/codex-rs/core/src/thread_spawn.rs
-@@ -96,6 +96,12 @@ pub(crate) async fn spawn(
+@@ -96,6 +96,13 @@ pub(crate) async fn spawn(
      .await
      .map_err(ThreadSpawnError::Preparation)?;
      let config = prepared.config;
 +    validate_cross_provider_message(
 +        &turn.config.model_provider_id,
 +        &config.model_provider_id,
++        config.model_provider.is_openai(),
 +        &message,
 +    )
 +    .map_err(ThreadSpawnError::Preparation)?;
      let task_name = turn
          .session_source
          .get_agent_path()
-@@ -165,3 +171,57 @@ pub(crate) async fn spawn(
+@@ -165,3 +172,118 @@ pub(crate) async fn spawn(
          task_name,
      })
  }
 +
++/// Encrypted task content may only be delivered to a child that can actually decrypt it.
++///
++/// Provider ids alone are not a trust boundary: one gateway can front several upstream
++/// vendors, so a parent and a child can share a provider id while living in different
++/// encryption domains. Only OpenAI-family providers keep `encrypted_content` on the wire;
++/// every other provider strips it before the request, so an encrypted task would arrive
++/// empty instead of failing loudly. Decide on the child's decryption capability first and
++/// keep the provider-id comparison as the secondary trust boundary.
 +fn validate_cross_provider_message(
 +    parent_provider_id: &str,
 +    child_provider_id: &str,
++    child_can_decrypt: bool,
 +    message: &AgentMessage,
 +) -> Result<(), String> {
-+    if parent_provider_id != child_provider_id && matches!(message, AgentMessage::Encrypted(_)) {
++    if !matches!(message, AgentMessage::Encrypted(_)) {
++        return Ok(());
++    }
++    if !child_can_decrypt {
++        return Err(format!(
++            "spawn_agent cannot deliver encrypted task content to provider `{child_provider_id}`: the child provider cannot decrypt it, and the content is dropped during transport"
++        ));
++    }
++    if parent_provider_id != child_provider_id {
 +        return Err(format!(
 +            "spawn_agent across providers requires plaintext task content: parent provider `{parent_provider_id}`, child provider `{child_provider_id}`"
 +        ));
@@ -307,6 +325,7 @@ index 29dc6c4..6a22c56 100644
 +            validate_cross_provider_message(
 +                "openai",
 +                "litellm",
++                false,
 +                &AgentMessage::Encrypted("ciphertext".to_string())
 +            )
 +            .is_err()
@@ -319,6 +338,7 @@ index 29dc6c4..6a22c56 100644
 +            validate_cross_provider_message(
 +                "openai",
 +                "litellm",
++                false,
 +                &AgentMessage::Plaintext("Reply with exactly BANANA".to_string())
 +            )
 +            .is_ok()
@@ -331,9 +351,51 @@ index 29dc6c4..6a22c56 100644
 +            validate_cross_provider_message(
 +                "openai",
 +                "openai",
++                true,
 +                &AgentMessage::Encrypted("ciphertext".to_string())
 +            )
 +            .is_ok()
++        );
++    }
++
++    #[test]
++    fn shared_gateway_child_cannot_receive_encrypted_message() {
++        // Same provider id, but the child cannot decrypt: the encrypted content is stripped
++        // during transport and the task would silently arrive empty.
++        assert!(
++            validate_cross_provider_message(
++                "litellm",
++                "litellm",
++                false,
++                &AgentMessage::Encrypted("ciphertext".to_string())
++            )
++            .is_err()
++        );
++    }
++
++    #[test]
++    fn shared_gateway_child_can_receive_plaintext_message() {
++        assert!(
++            validate_cross_provider_message(
++                "litellm",
++                "litellm",
++                false,
++                &AgentMessage::Plaintext("Reply with exactly BANANA".to_string())
++            )
++            .is_ok()
++        );
++    }
++
++    #[test]
++    fn different_providers_reject_encrypted_message_even_when_child_can_decrypt() {
++        assert!(
++            validate_cross_provider_message(
++                "litellm",
++                "openai",
++                true,
++                &AgentMessage::Encrypted("ciphertext".to_string())
++            )
++            .is_err()
 +        );
 +    }
 +}

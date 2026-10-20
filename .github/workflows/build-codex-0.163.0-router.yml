@@ -73,6 +73,8 @@ jobs:
           cargo test --release -p codex-core --lib collaboration_spawn_is_plaintext_unless_args_are_encrypted
           cargo test --release -p codex-core --lib cross_provider_
           cargo test --release -p codex-core --lib plaintext_source_produces_plaintext_message
+          cargo test --release -p codex-core --lib shared_gateway_
+          cargo test --release -p codex-core --lib different_providers_
 
       - name: Publish release asset
         env:
