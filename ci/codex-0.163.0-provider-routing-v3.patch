@@ -1,0 +1,2168 @@
+diff --git a/codex-rs/Cargo.lock b/codex-rs/Cargo.lock
+index 72658b9..68bd618 100644
+--- a/codex-rs/Cargo.lock
++++ b/codex-rs/Cargo.lock
+@@ -276,7 +276,7 @@ checksum = "2a4385e2e34eb35d6b3efe798b9eb88096925d87726c0798709bf56d9ed84af3"
+ 
+ [[package]]
+ name = "app_test_support"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "base64 0.22.1",
+@@ -1895,7 +1895,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-agent-extension"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-core",
+@@ -1907,7 +1907,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-agent-graph-store"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-protocol",
+  "codex-state",
+@@ -1922,7 +1922,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-agent-identity"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "base64 0.22.1",
+@@ -1942,7 +1942,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-agent-message-board-client"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "chrono",
+@@ -1965,7 +1965,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-agent-message-board-extension"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "base64 0.22.1",
+  "caseless",
+@@ -1988,7 +1988,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-agent-roles"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-config",
+  "codex-file-system",
+@@ -2001,7 +2001,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-analytics"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-app-server-protocol",
+  "codex-git-utils",
+@@ -2024,7 +2024,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-ansi-escape"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "ansi-to-tui",
+  "pretty_assertions",
+@@ -2035,7 +2035,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-api"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "assert_matches",
+@@ -2073,7 +2073,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-app-server"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "app_test_support",
+@@ -2187,7 +2187,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-app-server-client"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-app-server",
+  "codex-app-server-protocol",
+@@ -2214,7 +2214,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-app-server-daemon"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "blake3",
+@@ -2240,7 +2240,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-app-server-protocol"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-app-server-protocol-noop-macros",
+@@ -2274,11 +2274,11 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-app-server-protocol-noop-macros"
+-version = "0.0.0"
++version = "0.163.0"
+ 
+ [[package]]
+ name = "codex-app-server-test-client"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "clap",
+@@ -2300,7 +2300,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-app-server-transport"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "axum",
+  "base64 0.22.1",
+@@ -2342,7 +2342,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-apply-patch"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "assert_cmd",
+@@ -2362,7 +2362,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-arg0"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-apply-patch",
+@@ -2385,7 +2385,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-async-utils"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "pretty_assertions",
+  "rand 0.9.3",
+@@ -2395,7 +2395,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-attachment-store"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "pretty_assertions",
+  "serde",
+@@ -2405,7 +2405,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-aws-auth"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "aws-config",
+  "aws-credential-types",
+@@ -2431,7 +2431,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-backend-client"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-api",
+@@ -2451,7 +2451,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-backend-openapi-models"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "serde",
+  "serde_json",
+@@ -2460,7 +2460,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-build-info"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-install-context",
+  "pretty_assertions",
+@@ -2473,7 +2473,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-bwrap"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "cc",
+  "libc",
+@@ -2482,7 +2482,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-chatgpt"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "clap",
+@@ -2504,7 +2504,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-cli"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "app_test_support",
+@@ -2606,7 +2606,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-client"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-http-client",
+  "eventsource-stream",
+@@ -2620,7 +2620,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-cloud-client"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "async-stream",
+@@ -2644,7 +2644,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-cloud-config"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "base64 0.22.1",
+  "chrono",
+@@ -2670,7 +2670,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-cloud-tasks"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "chrono",
+@@ -2703,7 +2703,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-cloud-tasks-client"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "chrono",
+@@ -2718,7 +2718,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-cloud-tasks-mock-client"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "chrono",
+  "codex-cloud-tasks-client",
+@@ -2727,7 +2727,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-code-mode"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-code-mode-protocol",
+  "codex-http-client",
+@@ -2751,7 +2751,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-code-mode-host"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "axum",
+@@ -2780,7 +2780,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-code-mode-protocol"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-protocol",
+  "glob",
+@@ -2798,7 +2798,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-code-mode-runtime"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "base64 0.22.1",
+  "codex-code-mode-protocol",
+@@ -2816,11 +2816,11 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-collaboration-mode-templates"
+-version = "0.0.0"
++version = "0.163.0"
+ 
+ [[package]]
+ name = "codex-config"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "base64 0.22.1",
+@@ -2870,7 +2870,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-config-schema"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "clap",
+@@ -2879,7 +2879,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-connectors"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "arc-swap",
+@@ -2901,7 +2901,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-connectors-extension"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-connectors",
+  "codex-core-plugins",
+@@ -2915,7 +2915,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-context-fragments"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-protocol",
+  "codex-utils-string",
+@@ -2925,7 +2925,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-core"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "arc-swap",
+@@ -3038,6 +3038,7 @@ dependencies = [
+  "rmcp",
+  "serde",
+  "serde_json",
++ "serde_yaml",
+  "serial_test",
+  "sha1 0.10.6",
+  "shlex",
+@@ -3069,7 +3070,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-core-api"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-analytics",
+  "codex-app-server-protocol",
+@@ -3092,7 +3093,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-core-plugin-common"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-utils-absolute-path",
+  "semver",
+@@ -3103,7 +3104,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-core-plugins"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "chrono",
+@@ -3160,7 +3161,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-diagnostics"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "libc",
+  "pretty_assertions",
+@@ -3168,7 +3169,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-exec"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "assert_cmd",
+@@ -3221,7 +3222,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-exec-server"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "arc-swap",
+@@ -3293,7 +3294,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-exec-server-protocol"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "base64 0.22.1",
+  "codex-file-system",
+@@ -3310,7 +3311,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-exec-server-test-support"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-exec-server",
+@@ -3325,7 +3326,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-execpolicy"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "clap",
+@@ -3343,7 +3344,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-experimental-api-macros"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "proc-macro2",
+  "quote",
+@@ -3352,7 +3353,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-extension-api"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-api",
+  "codex-config",
+@@ -3374,7 +3375,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-extension-items"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-utils-absolute-path",
+  "pretty_assertions",
+@@ -3386,7 +3387,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-external-agent-migration"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "chrono",
+  "codex-analytics",
+@@ -3417,7 +3418,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-features"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-network-proxy",
+  "codex-protocol",
+@@ -3431,7 +3432,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-feedback"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "bytes",
+@@ -3458,7 +3459,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-file-search"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "clap",
+@@ -3474,7 +3475,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-file-system"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "bytes",
+  "codex-protocol",
+@@ -3486,7 +3487,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-file-watcher"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "notify",
+  "pretty_assertions",
+@@ -3497,7 +3498,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-git-attribution"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-backend-client",
+  "codex-extension-api",
+@@ -3510,7 +3511,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-git-utils"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "chrono",
+@@ -3538,7 +3539,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-goal-extension"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "chrono",
+@@ -3563,7 +3564,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-guardian-context"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-context-fragments",
+  "codex-history",
+@@ -3575,7 +3576,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-guardian-reviewer"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-analytics",
+@@ -3600,7 +3601,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-guardian-v2"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-analytics",
+@@ -3638,7 +3639,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-history"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-protocol",
+@@ -3650,7 +3651,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-history-notes-extension"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-analytics",
+  "codex-client",
+@@ -3675,7 +3676,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-home"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-extension-api",
+  "codex-utils-absolute-path",
+@@ -3687,7 +3688,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-hooks"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "async-channel",
+@@ -3715,7 +3716,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-http-client"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "bytes",
+  "codex-utils-cargo-bin",
+@@ -3751,7 +3752,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-image-generation-extension"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "base64 0.22.1",
+  "codex-api",
+@@ -3779,7 +3780,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-install-context"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-utils-absolute-path",
+  "codex-utils-home-dir",
+@@ -3792,7 +3793,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-keyring-store"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "keyring",
+  "pretty_assertions",
+@@ -3803,7 +3804,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-linux-sandbox"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "clap",
+  "codex-core",
+@@ -3832,7 +3833,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-lmstudio"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-core",
+  "codex-http-client",
+@@ -3846,7 +3847,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-login"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "base64 0.22.1",
+@@ -3892,7 +3893,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-mcp"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "arc-swap",
+@@ -3935,7 +3936,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-mcp-extension"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "axum",
+@@ -3968,7 +3969,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-memories-extension"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-core",
+  "codex-extension-api",
+@@ -3990,7 +3991,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-memories-read"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-protocol",
+  "codex-shell-command",
+@@ -4000,7 +4001,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-memories-write"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "chrono",
+@@ -4037,7 +4038,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-mermaid"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "insta",
+  "pretty_assertions",
+@@ -4046,7 +4047,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-message-history"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-config",
+  "memchr",
+@@ -4060,7 +4061,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-model-provider"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "base64 0.22.1",
+  "chrono",
+@@ -4094,7 +4095,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-model-provider-info"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-client",
+  "codex-protocol",
+@@ -4112,7 +4113,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-models-manager"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "chrono",
+  "codex-http-client",
+@@ -4131,7 +4132,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-mxc-sandbox"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "appcontainer_common",
+@@ -4153,7 +4154,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-network-proxy"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "base64 0.22.1",
+@@ -4202,7 +4203,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-ollama"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "assert_matches",
+  "async-stream",
+@@ -4222,7 +4223,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-otel"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "bytes",
+  "chrono",
+@@ -4259,7 +4260,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-otel-trace-websocket"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "axum",
+@@ -4270,7 +4271,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-plugin"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-config",
+  "codex-core-plugin-common",
+@@ -4285,7 +4286,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-process-hardening"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "libc",
+  "pretty_assertions",
+@@ -4293,7 +4294,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-prompts"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-collaboration-mode-templates",
+@@ -4310,7 +4311,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-protocol"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "chardetng",
+@@ -4355,7 +4356,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-queue-extension"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-core",
+@@ -4376,7 +4377,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-realtime-webrtc"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-build-info",
+@@ -4395,7 +4396,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-response-debug-context"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "base64 0.22.1",
+  "codex-api",
+@@ -4406,7 +4407,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-responses-api-proxy"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "clap",
+@@ -4423,7 +4424,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-rmcp-client"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "axum",
+@@ -4474,7 +4475,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-rollout"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "chrono",
+@@ -4505,7 +4506,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-rollout-trace"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-code-mode",
+@@ -4521,7 +4522,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-sandboxing"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-mxc-sandbox",
+@@ -4549,7 +4550,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-secrets"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "age",
+  "anyhow",
+@@ -4570,7 +4571,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-shell-command"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "base64 0.22.1",
+@@ -4593,7 +4594,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-skills"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-protocol",
+  "codex-shell-command",
+@@ -4610,7 +4611,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-skills-extension"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "assert_matches",
+  "blake3",
+@@ -4648,7 +4649,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-state"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "chrono",
+@@ -4675,7 +4676,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-stdio-to-uds"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-uds",
+@@ -4687,7 +4688,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-tcp-tunnel"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "bytes",
+@@ -4708,7 +4709,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-terminal-detection"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "pretty_assertions",
+  "tracing",
+@@ -4716,7 +4717,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-test-binary-support"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-arg0",
+  "tempfile",
+@@ -4724,7 +4725,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-thread-manager-sample"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "clap",
+@@ -4735,7 +4736,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-thread-store"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "chrono",
+  "codex-app-server-protocol",
+@@ -4766,7 +4767,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-tools"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "bitflags 2.13.1",
+  "codex-code-mode",
+@@ -4790,7 +4791,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-tui"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "app_test_support",
+@@ -4917,7 +4918,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-uds"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "async-io",
+  "libc",
+@@ -4931,7 +4932,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-user-verification"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "base64 0.22.1",
+  "core-foundation 0.10.1",
+@@ -4951,7 +4952,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-absolute-path"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "dirs",
+  "dunce",
+@@ -4965,14 +4966,14 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-approval-presets"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-protocol",
+ ]
+ 
+ [[package]]
+ name = "codex-utils-audio"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "base64 0.22.1",
+  "codex-protocol",
+@@ -4986,7 +4987,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-cache"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "lru",
+  "sha1 0.10.6",
+@@ -4995,7 +4996,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-cargo-bin"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "assert_cmd",
+  "runfiles",
+@@ -5004,7 +5005,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-cli"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "clap",
+  "codex-protocol",
+@@ -5016,15 +5017,15 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-elapsed"
+-version = "0.0.0"
++version = "0.163.0"
+ 
+ [[package]]
+ name = "codex-utils-fuzzy-match"
+-version = "0.0.0"
++version = "0.163.0"
+ 
+ [[package]]
+ name = "codex-utils-git-discovery"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-git-utils",
+  "codex-utils-absolute-path",
+@@ -5037,7 +5038,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-home-dir"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-utils-absolute-path",
+  "dirs",
+@@ -5047,7 +5048,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-image"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "base64 0.22.1",
+  "codex-utils-cache",
+@@ -5061,7 +5062,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-json-to-toml"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "pretty_assertions",
+  "serde_json",
+@@ -5070,7 +5071,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-oss"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-core",
+  "codex-lmstudio",
+@@ -5080,7 +5081,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-output-truncation"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-protocol",
+  "codex-utils-string",
+@@ -5090,7 +5091,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-path"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-utils-absolute-path",
+  "dunce",
+@@ -5101,7 +5102,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-path-uri"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "base64 0.22.1",
+  "codex-utils-absolute-path",
+@@ -5117,7 +5118,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-plugins"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-exec-server",
+  "codex-exec-server-protocol",
+@@ -5131,7 +5132,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-process"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "pretty_assertions",
+  "tokio",
+@@ -5139,7 +5140,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-pty"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-utils-cargo-bin",
+@@ -5158,7 +5159,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-readiness"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "assert_matches",
+  "thiserror 2.0.18",
+@@ -5168,7 +5169,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-redacted-string"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "schemars 0.8.22",
+  "serde",
+@@ -5176,14 +5177,14 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-rustls-provider"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "rustls",
+ ]
+ 
+ [[package]]
+ name = "codex-utils-sandbox-summary"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-protocol",
+  "codex-utils-absolute-path",
+@@ -5193,7 +5194,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-sleep-inhibitor"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "core-foundation 0.9.4",
+  "libc",
+@@ -5203,14 +5204,14 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-stream-parser"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "pretty_assertions",
+ ]
+ 
+ [[package]]
+ name = "codex-utils-string"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "pretty_assertions",
+  "regex-lite",
+@@ -5220,14 +5221,14 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-utils-template"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "pretty_assertions",
+ ]
+ 
+ [[package]]
+ name = "codex-v8-poc"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "pretty_assertions",
+  "v8",
+@@ -5235,7 +5236,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-voice-host"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-install-context",
+@@ -5262,7 +5263,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-web-search-extension"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-api",
+  "codex-core",
+@@ -5284,7 +5285,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-websocket-auth"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "base64 0.22.1",
+@@ -5303,7 +5304,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-websocket-client"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-http-client",
+  "codex-utils-rustls-provider",
+@@ -5319,7 +5320,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-windows-sandbox"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "base64 0.22.1",
+@@ -5349,7 +5350,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-windows-sandbox-service"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-cloud-config",
+@@ -5366,14 +5367,14 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-windows-sandbox-test-support"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "dirs",
+ ]
+ 
+ [[package]]
+ name = "codex-workload-identity"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "codex-http-client",
+  "pretty_assertions",
+@@ -5388,7 +5389,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "codex-worktree"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "codex-git-utils",
+@@ -5629,7 +5630,7 @@ dependencies = [
+ 
+ [[package]]
+ name = "core_test_support"
+-version = "0.0.0"
++version = "0.163.0"
+ dependencies = [
+  "anyhow",
+  "assert_cmd",
+diff --git a/codex-rs/core/Cargo.toml b/codex-rs/core/Cargo.toml
+index 39c8608..134ef5b 100644
+--- a/codex-rs/core/Cargo.toml
++++ b/codex-rs/core/Cargo.toml
+@@ -108,6 +108,7 @@ rmcp = { workspace = true, default-features = false, features = [
+ ] }
+ serde = { workspace = true, features = ["derive"] }
+ serde_json = { workspace = true }
++serde_yaml = { workspace = true }
+ sha1 = { workspace = true }
+ shlex = { workspace = true }
+ similar = { workspace = true }
+diff --git a/codex-rs/core/src/agent/child_config.rs b/codex-rs/core/src/agent/child_config.rs
+index 3d56d7e..e451edd 100644
+--- a/codex-rs/core/src/agent/child_config.rs
++++ b/codex-rs/core/src/agent/child_config.rs
+@@ -6,6 +6,7 @@
+ use crate::agent::role::DEFAULT_ROLE_NAME;
+ use crate::agent::role::apply_role_to_config;
+ use crate::config::Config;
++use crate::model_registry::ModelRegistry;
+ use crate::session::session::Session;
+ use crate::session::step_context::StepContext;
+ use crate::session::turn_context::TurnContext;
+@@ -82,6 +83,9 @@ pub(crate) async fn prepare_agent_spawn_config(
+         }
+     }
+     apply_spawn_agent_service_tier(session, &mut config).await?;
++    if config.model.as_deref() != Some(turn.model_info().slug.as_str()) {
++        resolve_spawn_agent_model_provider(&mut config)?;
++    }
+     apply_spawn_agent_runtime_overrides(&mut config, turn)?;
+ 
+     // Remember an applied configured default so cold reload reapplies its restrictions.
+@@ -201,6 +205,36 @@ fn apply_spawn_agent_runtime_overrides(
+     Ok(())
+ }
+ 
++fn resolve_spawn_agent_model_provider(config: &mut Config) -> Result<(), String> {
++    let Some(model_slug) = config.model.clone() else {
++        return Ok(());
++    };
++    let registry = ModelRegistry::load_default()?;
++    let Some(entry) = registry.lookup(&model_slug) else {
++        return Ok(());
++    };
++    let provider = config
++        .model_providers
++        .get(&entry.provider)
++        .cloned()
++        .ok_or_else(|| {
++            format!(
++                "spawn_agent model `{model_slug}` resolved to unknown provider `{}`",
++                entry.provider
++            )
++        })?;
++    tracing::info!(
++        model = %model_slug,
++        provider = %entry.provider,
++        upstream_model = %entry.upstream_model,
++        "spawn_agent model resolved from router registry"
++    );
++    config.model_provider_id = entry.provider.clone();
++    config.model_provider = provider;
++    config.model = Some(entry.upstream_model.clone());
++    Ok(())
++}
++
+ async fn apply_requested_spawn_agent_model_overrides(
+     session: &Session,
+     step_context: &StepContext,
+diff --git a/codex-rs/core/src/agent/control.rs b/codex-rs/core/src/agent/control.rs
+index 895cd26..e7a099a 100644
+--- a/codex-rs/core/src/agent/control.rs
++++ b/codex-rs/core/src/agent/control.rs
+@@ -259,6 +259,7 @@ impl LocalAgentControl {
+         context: AgentCommunicationContext,
+         start_options: TurnStartOptions,
+     ) -> CodexResult<String> {
++        validate_cross_provider_communication(state, &communication, &context, agent_id).await?;
+         let communication_for_log =
+             crate::agent_communication::logging_enabled().then(|| communication.clone());
+         {
+@@ -739,6 +740,53 @@ fn thread_spawn_depth(session_source: &SessionSource) -> Option<i32> {
+         _ => None,
+     }
+ }
++
++/// Resolves a thread's model provider id without requiring the thread to be
++/// loaded: loaded threads report their live snapshot, evicted or queued
++/// recipients fall back to their stored rollout metadata.
++async fn thread_provider_id(
++    state: &ThreadManagerState,
++    thread_id: ThreadId,
++) -> CodexResult<String> {
++    match state.get_thread(thread_id).await {
++        Ok(thread) => Ok(thread.config_snapshot().await.model_provider_id),
++        Err(err) if matches!(err.details(), CodexErrorDetails::ThreadNotFound(_)) => {
++            let stored = state
++                .read_stored_thread(ReadThreadParams {
++                    thread_id,
++                    include_archived: true,
++                    include_history: false,
++                })
++                .await?;
++            Ok(stored.model_provider)
++        }
++        Err(err) => Err(err),
++    }
++}
++
++/// Fail-closed trust-boundary check for inter-agent transport. Encrypted
++/// message content may only cross threads that share a model provider: the
++/// receiving provider would otherwise receive ciphertext it cannot decrypt.
++/// Plaintext messages are always allowed. The error names provider ids only;
++/// message content is never included.
++async fn validate_cross_provider_communication(
++    state: &ThreadManagerState,
++    communication: &InterAgentCommunication,
++    context: &AgentCommunicationContext,
++    receiver_id: ThreadId,
++) -> CodexResult<()> {
++    if communication.encrypted_content.is_none() {
++        return Ok(());
++    }
++    let sender_provider = thread_provider_id(state, context.sender_thread_id()).await?;
++    let receiver_provider = thread_provider_id(state, receiver_id).await?;
++    if sender_provider != receiver_provider {
++        return Err(CodexErr::InvalidRequest(format!(
++            "cross-provider agent messaging requires plaintext content: sender provider `{sender_provider}`, receiver provider `{receiver_provider}`"
++        )));
++    }
++    Ok(())
++}
+ #[cfg(test)]
+ #[path = "control_tests.rs"]
+ mod tests;
+diff --git a/codex-rs/core/src/agent/control/spawn.rs b/codex-rs/core/src/agent/control/spawn.rs
+index 70cf8b7..8271b54 100644
+--- a/codex-rs/core/src/agent/control/spawn.rs
++++ b/codex-rs/core/src/agent/control/spawn.rs
+@@ -1087,6 +1087,27 @@ impl LocalAgentControl {
+                 })?
+                 .items;
+ 
++        let parent_provider_id = parent_thread.config_snapshot().await.model_provider_id;
++        if config.model_provider_id != parent_provider_id {
++            let mut cleared = 0;
++            for item in &mut forked_rollout_items {
++                if let RolloutItem::ResponseItem(envelope) = item
++                    && envelope.item.id().is_some()
++                {
++                    envelope.item.set_id(None);
++                    cleared += 1;
++                }
++            }
++            if cleared > 0 {
++                tracing::info!(
++                    parent_provider_id = %parent_provider_id,
++                    child_provider_id = %config.model_provider_id,
++                    cleared,
++                    "cleared provider-owned response item ids from forked history"
++                );
++            }
++        }
++
+         let multi_agent_v2_usage_hint_texts_to_filter: Vec<String> =
+             if multi_agent_version == MultiAgentVersion::V2 {
+                 let parent_config = parent_thread.session.get_config().await;
+diff --git a/codex-rs/core/src/agent/control_tests.rs b/codex-rs/core/src/agent/control_tests.rs
+index 6d97ece..ce0c74b 100644
+--- a/codex-rs/core/src/agent/control_tests.rs
++++ b/codex-rs/core/src/agent/control_tests.rs
+@@ -1076,6 +1076,184 @@ async fn send_inter_agent_communication_without_turn_queues_message_without_trig
+     ));
+ }
+ 
++/// Runs `f` on an OS thread with a large stack. Two-thread control harnesses
++/// exceed the default 2 MiB test-thread stack in debug builds during setup and
++/// teardown, unrelated to the behavior under test.
++fn with_big_stack<T: Send + 'static>(f: impl FnOnce() -> T + Send + 'static) -> T {
++    std::thread::Builder::new()
++        .stack_size(64 * 1024 * 1024)
++        .spawn(f)
++        .expect("spawn big-stack test thread")
++        .join()
++        .expect("big-stack test thread panicked")
++}
++
++fn big_stack_runtime() -> tokio::runtime::Runtime {
++    tokio::runtime::Builder::new_current_thread()
++        .enable_all()
++        .build()
++        .expect("build current-thread runtime")
++}
++
++fn config_with_provider(config: &Config, provider_id: &str) -> Config {
++    let mut config = config.clone();
++    config.model_provider_id = provider_id.to_string();
++    config.model_provider = config
++        .model_providers
++        .get(provider_id)
++        .cloned()
++        .unwrap_or_else(|| panic!("{provider_id} provider should be configured"));
++    config
++}
++
++async fn start_thread_with_provider(
++    harness: &AgentControlHarness,
++    provider_id: &str,
++) -> (ThreadId, Arc<CodexThread>) {
++    let new_thread = harness
++        .manager
++        .start_thread(StartThreadOptions::new(config_with_provider(
++            &harness.config,
++            provider_id,
++        )))
++        .await
++        .expect("start thread");
++    (new_thread.thread_id, new_thread.thread)
++}
++
++#[test]
++fn cross_provider_encrypted_message_fails_closed_without_payload_leak() {
++    with_big_stack(|| {
++        let rt = big_stack_runtime();
++        rt.block_on(async {
++            let harness = AgentControlHarness::new().await;
++            let (sender_id, _sender) = harness.start_thread().await;
++            let (receiver_id, _receiver) = start_thread_with_provider(&harness, "ollama").await;
++            let payload = "SECRET_ENCRYPTED_PAYLOAD_FOR_TESTS";
++            let communication = InterAgentCommunication::new_encrypted(
++                AgentPath::root(),
++                AgentPath::try_from("/root/worker").expect("agent path"),
++                Vec::new(),
++                payload.to_string(),
++                /*trigger_turn*/ false,
++            );
++
++            let err = harness
++                .control
++                .send_inter_agent_communication(
++                    receiver_id,
++                    communication,
++                    AgentCommunicationContext::new(AgentCommunicationKind::Message, sender_id),
++                    Default::default(),
++                )
++                .await
++                .expect_err("cross-provider encrypted message must be rejected");
++            let rendered = err.to_string();
++            assert!(rendered.contains("cross-provider"), "{rendered}");
++            assert!(
++                !rendered.contains(payload),
++                "rejection must not leak the encrypted payload: {rendered}"
++            );
++        });
++    });
++}
++
++#[test]
++fn cross_provider_encrypted_followup_fails_closed() {
++    with_big_stack(|| {
++        let rt = big_stack_runtime();
++        rt.block_on(async {
++            let harness = AgentControlHarness::new().await;
++            let (sender_id, _sender) = harness.start_thread().await;
++            let (receiver_id, _receiver) = start_thread_with_provider(&harness, "ollama").await;
++            let communication = InterAgentCommunication::new_encrypted(
++                AgentPath::root(),
++                AgentPath::try_from("/root/worker").expect("agent path"),
++                Vec::new(),
++                "ciphertext".to_string(),
++                /*trigger_turn*/ true,
++            );
++            // Call the shared submission choke point directly (the same path
++            // every send_message/followup/spawn delivery funnels through) so
++            // the test targets the trust-boundary guard itself.
++            let state = harness.control.runtime.upgrade().expect("runtime state");
++
++            let err = harness
++                .control
++                .send_inter_agent_communication_after_capacity_check(
++                    receiver_id,
++                    &state,
++                    communication,
++                    AgentCommunicationContext::new(AgentCommunicationKind::Followup, sender_id),
++                    Default::default(),
++                )
++                .await
++                .expect_err("cross-provider encrypted followup must be rejected");
++            assert!(err.to_string().contains("cross-provider"));
++        });
++    });
++}
++
++#[test]
++fn same_provider_encrypted_message_is_delivered() {
++    with_big_stack(|| {
++        let rt = big_stack_runtime();
++        rt.block_on(async {
++            let harness = AgentControlHarness::new().await;
++            let (sender_id, _sender) = harness.start_thread().await;
++            let (receiver_id, _receiver) = harness.start_thread().await;
++            let communication = InterAgentCommunication::new_encrypted(
++                AgentPath::root(),
++                AgentPath::try_from("/root/worker").expect("agent path"),
++                Vec::new(),
++                "same-provider ciphertext".to_string(),
++                /*trigger_turn*/ false,
++            );
++
++            harness
++                .control
++                .send_inter_agent_communication(
++                    receiver_id,
++                    communication,
++                    AgentCommunicationContext::new(AgentCommunicationKind::Message, sender_id),
++                    Default::default(),
++                )
++                .await
++                .expect("same-provider encrypted message must be allowed");
++        });
++    });
++}
++
++#[test]
++fn cross_provider_plaintext_message_is_delivered() {
++    with_big_stack(|| {
++        let rt = big_stack_runtime();
++        rt.block_on(async {
++            let harness = AgentControlHarness::new().await;
++            let (sender_id, _sender) = harness.start_thread().await;
++            let (receiver_id, _receiver) = start_thread_with_provider(&harness, "ollama").await;
++            let communication = InterAgentCommunication::new(
++                AgentPath::root(),
++                AgentPath::try_from("/root/worker").expect("agent path"),
++                Vec::new(),
++                "plaintext hello".to_string(),
++                /*trigger_turn*/ false,
++            );
++
++            harness
++                .control
++                .send_inter_agent_communication(
++                    receiver_id,
++                    communication,
++                    AgentCommunicationContext::new(AgentCommunicationKind::Message, sender_id),
++                    Default::default(),
++                )
++                .await
++                .expect("cross-provider plaintext message must be allowed");
++        });
++    });
++}
++
+ #[tokio::test]
+ async fn ensure_v2_agent_loaded_reloads_registered_unloaded_agent() {
+     check_v2_agent_reload(V2ReloadRoute::Sender).await;
+diff --git a/codex-rs/core/src/agent_communication.rs b/codex-rs/core/src/agent_communication.rs
+index 9925d61..5ea61e8 100644
+--- a/codex-rs/core/src/agent_communication.rs
++++ b/codex-rs/core/src/agent_communication.rs
+@@ -38,6 +38,18 @@ impl AgentCommunicationContext {
+             sender_thread_id,
+         }
+     }
++
++    pub(crate) fn sender_thread_id(&self) -> ThreadId {
++        self.sender_thread_id
++    }
++}
++
++fn communication_content_for_log(communication: &InterAgentCommunication) -> &'static str {
++    if communication.encrypted_content.is_some() {
++        "[encrypted]"
++    } else {
++        "[plaintext]"
++    }
+ }
+ 
+ pub(crate) fn logging_enabled() -> bool {
+@@ -59,10 +71,7 @@ pub(crate) fn emit_agent_communication_send(
+             state = "send",
+             sender_thread_id = %context.sender_thread_id,
+             receiver_thread_id = %receiver_thread_id,
+-            content = communication
+-                .encrypted_content
+-                .as_deref()
+-                .unwrap_or("[plaintext]"),
++            content = communication_content_for_log(communication),
+         },
+         "agent communication"
+     );
+diff --git a/codex-rs/core/src/lib.rs b/codex-rs/core/src/lib.rs
+index 08b52fc..73acb3e 100644
+--- a/codex-rs/core/src/lib.rs
++++ b/codex-rs/core/src/lib.rs
+@@ -9,6 +9,7 @@ mod apply_patch;
+ mod apps;
+ mod client;
+ mod client_common;
++mod model_registry;
+ mod model_request;
+ mod realtime_context;
+ mod realtime_conversation;
+diff --git a/codex-rs/core/src/model_registry.rs b/codex-rs/core/src/model_registry.rs
+new file mode 100644
+index 0000000..793a2ba
+--- /dev/null
++++ b/codex-rs/core/src/model_registry.rs
+@@ -0,0 +1,112 @@
++use serde::Deserialize;
++use std::collections::HashMap;
++use std::path::{Path, PathBuf};
++
++const REGISTRY_PATH_ENV: &str = "CODEX_ROUTER_MODELS_PATH";
++
++#[derive(Debug, Clone, Deserialize, PartialEq, Eq)]
++pub(crate) struct ModelEntry {
++    pub(crate) provider: String,
++    pub(crate) upstream_model: String,
++}
++
++#[derive(Debug, Clone, Default)]
++pub(crate) struct ModelRegistry {
++    entries: HashMap<String, ModelEntry>,
++}
++
++impl ModelRegistry {
++    pub(crate) fn load(path: &Path) -> Result<Self, String> {
++        match std::fs::read_to_string(path) {
++            Ok(contents) => Self::from_yaml(&contents)
++                .map_err(|err| format!("invalid model registry {}: {err}", path.display())),
++            Err(err) if err.kind() == std::io::ErrorKind::NotFound => Ok(Self::default()),
++            Err(err) => Err(format!(
++                "failed to read model registry {}: {err}",
++                path.display()
++            )),
++        }
++    }
++
++    pub(crate) fn from_yaml(yaml: &str) -> Result<Self, String> {
++        if yaml.trim().is_empty() {
++            return Ok(Self::default());
++        }
++        let entries: HashMap<String, ModelEntry> =
++            serde_yaml::from_str(yaml).map_err(|err| err.to_string())?;
++        Ok(Self { entries })
++    }
++
++    pub(crate) fn load_default() -> Result<Self, String> {
++        if let Some(path) = std::env::var_os(REGISTRY_PATH_ENV) {
++            return Self::load(Path::new(&path));
++        }
++        match Self::default_path() {
++            Some(path) => Self::load(&path),
++            None => Ok(Self::default()),
++        }
++    }
++
++    pub(crate) fn lookup(&self, model_slug: &str) -> Option<&ModelEntry> {
++        self.entries.get(model_slug)
++    }
++
++    fn default_path() -> Option<PathBuf> {
++        dirs::home_dir().map(|home| home.join(".config/codex-router/models.yaml"))
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use std::io::Write;
++
++    const SAMPLE: &str = r#"
++nemotron-3.5-lightning:
++  provider: litellm
++  upstream_model: nvidia/nemotron-3.5-lightning
++gpt-6-astra:
++  provider: openai
++  upstream_model: gpt-6-astra
++"#;
++
++    #[test]
++    fn parses_entries_and_looks_up_by_slug() {
++        let registry = ModelRegistry::from_yaml(SAMPLE).expect("registry");
++        let entry = registry.lookup("nemotron-3.5-lightning").expect("entry");
++        assert_eq!(entry.provider, "litellm");
++        assert_eq!(entry.upstream_model, "nvidia/nemotron-3.5-lightning");
++    }
++
++    #[test]
++    fn unknown_slug_is_none() {
++        let registry = ModelRegistry::from_yaml(SAMPLE).expect("registry");
++        assert!(registry.lookup("unknown").is_none());
++    }
++
++    #[test]
++    fn empty_registry_is_allowed() {
++        let registry = ModelRegistry::from_yaml("  \n").expect("registry");
++        assert!(registry.lookup("nemotron-3.5-lightning").is_none());
++    }
++
++    #[test]
++    fn malformed_registry_is_an_error() {
++        assert!(ModelRegistry::from_yaml("not: [valid").is_err());
++    }
++
++    #[test]
++    fn missing_file_is_empty() {
++        let registry =
++            ModelRegistry::load(Path::new("/nonexistent/models.yaml")).expect("registry");
++        assert!(registry.lookup("nemotron-3.5-lightning").is_none());
++    }
++
++    #[test]
++    fn reads_registry_file() {
++        let mut file = tempfile::NamedTempFile::new().expect("temp file");
++        file.write_all(SAMPLE.as_bytes()).expect("write");
++        let registry = ModelRegistry::load(file.path()).expect("registry");
++        assert!(registry.lookup("gpt-6-astra").is_some());
++    }
++}
+diff --git a/codex-rs/core/src/thread_spawn.rs b/codex-rs/core/src/thread_spawn.rs
+index 29dc6c4..78277b6 100644
+--- a/codex-rs/core/src/thread_spawn.rs
++++ b/codex-rs/core/src/thread_spawn.rs
+@@ -96,6 +96,13 @@ pub(crate) async fn spawn(
+     .await
+     .map_err(ThreadSpawnError::Preparation)?;
+     let config = prepared.config;
++    validate_cross_provider_message(
++        &turn.config.model_provider_id,
++        &config.model_provider_id,
++        config.model_provider.is_openai(),
++        &message,
++    )
++    .map_err(ThreadSpawnError::Preparation)?;
+     let task_name = turn
+         .session_source
+         .get_agent_path()
+@@ -165,3 +172,118 @@ pub(crate) async fn spawn(
+         task_name,
+     })
+ }
++
++/// Encrypted task content may only be delivered to a child that can actually decrypt it.
++///
++/// Provider ids alone are not a trust boundary: one gateway can front several upstream
++/// vendors, so a parent and a child can share a provider id while living in different
++/// encryption domains. Only OpenAI-family providers keep `encrypted_content` on the wire;
++/// every other provider strips it before the request, so an encrypted task would arrive
++/// empty instead of failing loudly. Decide on the child's decryption capability first and
++/// keep the provider-id comparison as the secondary trust boundary.
++fn validate_cross_provider_message(
++    parent_provider_id: &str,
++    child_provider_id: &str,
++    child_can_decrypt: bool,
++    message: &AgentMessage,
++) -> Result<(), String> {
++    if !matches!(message, AgentMessage::Encrypted(_)) {
++        return Ok(());
++    }
++    if !child_can_decrypt {
++        return Err(format!(
++            "spawn_agent cannot deliver encrypted task content to provider `{child_provider_id}`: the child provider cannot decrypt it, and the content is dropped during transport"
++        ));
++    }
++    if parent_provider_id != child_provider_id {
++        return Err(format!(
++            "spawn_agent across providers requires plaintext task content: parent provider `{parent_provider_id}`, child provider `{child_provider_id}`"
++        ));
++    }
++    Ok(())
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn cross_provider_rejects_encrypted_message() {
++        assert!(
++            validate_cross_provider_message(
++                "openai",
++                "litellm",
++                false,
++                &AgentMessage::Encrypted("ciphertext".to_string())
++            )
++            .is_err()
++        );
++    }
++
++    #[test]
++    fn cross_provider_allows_plaintext_message() {
++        assert!(
++            validate_cross_provider_message(
++                "openai",
++                "litellm",
++                false,
++                &AgentMessage::Plaintext("Reply with exactly BANANA".to_string())
++            )
++            .is_ok()
++        );
++    }
++
++    #[test]
++    fn same_provider_preserves_encrypted_message() {
++        assert!(
++            validate_cross_provider_message(
++                "openai",
++                "openai",
++                true,
++                &AgentMessage::Encrypted("ciphertext".to_string())
++            )
++            .is_ok()
++        );
++    }
++
++    #[test]
++    fn shared_gateway_child_cannot_receive_encrypted_message() {
++        // Same provider id, but the child cannot decrypt: the encrypted content is stripped
++        // during transport and the task would silently arrive empty.
++        assert!(
++            validate_cross_provider_message(
++                "litellm",
++                "litellm",
++                false,
++                &AgentMessage::Encrypted("ciphertext".to_string())
++            )
++            .is_err()
++        );
++    }
++
++    #[test]
++    fn shared_gateway_child_can_receive_plaintext_message() {
++        assert!(
++            validate_cross_provider_message(
++                "litellm",
++                "litellm",
++                false,
++                &AgentMessage::Plaintext("Reply with exactly BANANA".to_string())
++            )
++            .is_ok()
++        );
++    }
++
++    #[test]
++    fn different_providers_reject_encrypted_message_even_when_child_can_decrypt() {
++        assert!(
++            validate_cross_provider_message(
++                "litellm",
++                "openai",
++                true,
++                &AgentMessage::Encrypted("ciphertext".to_string())
++            )
++            .is_err()
++        );
++    }
++}
+diff --git a/codex-rs/core/src/tools/handlers/multi_agents_v2.rs b/codex-rs/core/src/tools/handlers/multi_agents_v2.rs
+index ea44c0a..b2ca2db 100644
+--- a/codex-rs/core/src/tools/handlers/multi_agents_v2.rs
++++ b/codex-rs/core/src/tools/handlers/multi_agents_v2.rs
+@@ -64,3 +64,23 @@ fn agent_message_from_tool(
+         AgentMessage::Encrypted(message)
+     }
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use crate::tools::context::ToolCallSource;
++
++    #[test]
++    fn plaintext_source_produces_plaintext_message() {
++        let source = ToolCallSource::DirectPlaintextMessage;
++        let message = agent_message_from_tool("Reply with exactly BANANA".to_string(), &source);
++        assert!(matches!(message, AgentMessage::Plaintext(_)));
++    }
++
++    #[test]
++    fn encrypted_source_produces_encrypted_message() {
++        let source = ToolCallSource::Direct;
++        let message = agent_message_from_tool("ciphertext".to_string(), &source);
++        assert!(matches!(message, AgentMessage::Encrypted(_)));
++    }
++}
+diff --git a/codex-rs/core/src/tools/router.rs b/codex-rs/core/src/tools/router.rs
+index a7a1928..a46eb82 100644
+--- a/codex-rs/core/src/tools/router.rs
++++ b/codex-rs/core/src/tools/router.rs
+@@ -62,7 +62,7 @@ impl ToolCall {
+             && self
+                 .encrypted_function_args
+                 .as_ref()
+-                .is_some_and(Vec::is_empty)
++                .is_none_or(Vec::is_empty)
+         {
+             ToolCallSource::DirectPlaintextMessage
+         } else {
+diff --git a/codex-rs/core/src/tools/router_tests.rs b/codex-rs/core/src/tools/router_tests.rs
+index aff6d41..6646cc1 100644
+--- a/codex-rs/core/src/tools/router_tests.rs
++++ b/codex-rs/core/src/tools/router_tests.rs
+@@ -207,6 +207,31 @@ async fn parallel_support_does_not_match_namespaced_local_tool_names() -> anyhow
+     Ok(())
+ }
+ 
++#[test]
++fn collaboration_spawn_is_plaintext_unless_args_are_encrypted() {
++    let call = |encrypted_function_args| ToolCall {
++        tool_name: ToolName::namespaced("collaboration", "spawn_agent"),
++        call_id: "call-spawn".to_string(),
++        payload: ToolPayload::Function {
++            arguments: "{}".to_string(),
++        },
++        encrypted_function_args,
++    };
++
++    assert_eq!(
++        call(None).direct_source(),
++        ToolCallSource::DirectPlaintextMessage
++    );
++    assert_eq!(
++        call(Some(Vec::new())).direct_source(),
++        ToolCallSource::DirectPlaintextMessage
++    );
++    assert_eq!(
++        call(Some(vec!["ciphertext".to_string()])).direct_source(),
++        ToolCallSource::Direct
++    );
++}
++
+ #[tokio::test]
+ async fn build_tool_call_uses_namespace_for_registry_name() -> anyhow::Result<()> {
+     let tool_name = "create_event".to_string();
