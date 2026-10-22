@@ -2090,22 +2090,26 @@ index 29dc6c4..78277b6 100644
 +    }
 +}
 diff --git a/codex-rs/core/src/tools/handlers/multi_agents_spec.rs b/codex-rs/core/src/tools/handlers/multi_agents_spec.rs
-index edc9467..7db7b3d 100644
+index edc9467..1793643 100644
 --- a/codex-rs/core/src/tools/handlers/multi_agents_spec.rs
 +++ b/codex-rs/core/src/tools/handlers/multi_agents_spec.rs
-@@ -214,7 +214,6 @@ pub fn create_send_message_tool() -> ToolSpec {
+@@ -213,8 +213,7 @@ pub fn create_send_message_tool() -> ToolSpec {
+             "message".to_string(),
              JsonSchema::string(Some(
                  "Message text to queue on the target agent.".to_string(),
-             ))
+-            ))
 -            .with_encrypted(),
++            )),
          ),
      ]);
  
-@@ -247,7 +246,6 @@ pub fn create_followup_task_tool() -> ToolSpec {
+@@ -246,8 +245,7 @@ pub fn create_followup_task_tool() -> ToolSpec {
+             "message".to_string(),
              JsonSchema::string(Some(
                  "Message text to send to the target agent.".to_string(),
-             ))
+-            ))
 -            .with_encrypted(),
++            )),
          ),
      ]);
  
