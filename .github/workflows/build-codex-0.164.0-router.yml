@@ -1,0 +1,91 @@
+name: Build Codex 0.164.0 provider routing
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      CARGO_INCREMENTAL: "0"
+      CARGO_PROFILE_RELEASE_DEBUG: "0"
+    steps:
+      - name: Checkout Codex 0.164.0
+        uses: actions/checkout@v4
+        with:
+          repository: openai/codex
+          ref: 6aaac694803004a63c6f393d153c96d22521a6b9
+          fetch-depth: 1
+
+      - name: Download routing patch
+        run: |
+          set -euo pipefail
+          curl -fsSL "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_REF_NAME}/ci/codex-0.164.0-provider-routing-v5.patch" -o /tmp/provider-routing.patch
+          git apply --check /tmp/provider-routing.patch
+          git apply /tmp/provider-routing.patch
+
+      - name: Install Linux build dependencies
+        run: |
+          set -euo pipefail
+          sudo apt-get update -y
+          sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends binutils pkg-config libcap-dev
+
+      - name: Set up Rust 1.95.0
+        uses: dtolnay/rust-toolchain@e081816240890017053eacbb1bdf337761dc5582
+        with:
+          targets: x86_64-unknown-linux-gnu
+
+      - name: Configure rusty_v8 artifacts
+        uses: ./.github/actions/setup-rusty-v8
+        with:
+          target: x86_64-unknown-linux-gnu
+
+      - name: Check formatting
+        working-directory: codex-rs
+        run: cargo fmt --all -- --check
+
+      - name: Build codex
+        working-directory: codex-rs
+        run: cargo build --release --bin codex
+
+      - name: Package artifact
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          cp codex-rs/target/release/codex dist/codex-0.164.0-router
+          strip --strip-debug dist/codex-0.164.0-router
+          file dist/codex-0.164.0-router
+          sha256sum dist/codex-0.164.0-router | tee dist/codex-0.164.0-router.sha256
+          CODEX_HOME="$(mktemp -d)" dist/codex-0.164.0-router --version | tee dist/version.txt
+
+      - name: Test registry
+        working-directory: codex-rs
+        run: cargo test --release -p codex-core model_registry --lib
+
+      - name: Test cross-provider message transport
+        working-directory: codex-rs
+        run: |
+          set -euo pipefail
+          cargo test --release -p codex-core --lib collaboration_spawn_is_plaintext_unless_args_are_encrypted
+          cargo test --release -p codex-core --lib cross_provider_
+          cargo test --release -p codex-core --lib same_provider_encrypted_message_is_delivered
+          cargo test --release -p codex-core --lib multi_agents_spec
+          cargo test --release -p codex-core --lib multi_agents_spec
+          cargo test --release -p codex-core --lib plaintext_source_produces_plaintext_message
+
+      - name: Publish release asset
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: codex-router-0.164.0-${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          gh release create "$TAG" dist/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "Codex 0.164.0 router candidate ($GITHUB_RUN_ID)" \
+            --notes "CI-built patched Codex 0.163.0. Candidate only; not deployed." \
+            --prerelease
+          echo "RELEASE_TAG=$TAG" >> "$GITHUB_STEP_SUMMARY"
